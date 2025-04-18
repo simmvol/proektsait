@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>День Программиста 2024</title>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            transition: background 0.5s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        /* Блоки с информацией */
+        .section {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* Навигация */
+        nav {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        nav a {
+            color: #4CAF50;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Кнопки смены фона */
+        .bg-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        /* Форма регистрации */
+        .registration-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Анимация фона */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированный фон (матрица) -->
+    <canvas id="matrix-bg"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>День Программиста 2024</h1>
+            <p>Празднуем 256-й день года вместе!</p>
+        </header>
+
+        <!-- Навигация -->
+        <nav>
+            <a href="https://collegetsaritsyno.mskobr.ru/" target="_blank">Колледж "Царицыно"</a>
+        </nav>
+
+        <!-- Кнопки смены фона -->
+        <div class="bg-buttons">
+            <button onclick="setBg('matrix')">Матрица</button>
+            <button onclick="setBg('code')">Падающий код</button>
+            <button onclick="setBg('dark')">Тёмный</button>
+        </div>
+
+        <!-- Организаторы -->
+        <div class="section">
+            <h2>Организаторы</h2>
+            <ul>
+                <li><strong>Чугунов Роман</strong></li>
+                <li><strong>Привезенцев Роман</strong></li>
+                <li><strong>Яковлев Степан</strong></li>
+                <li><strong>Мухбалиев Никита</strong></li>
+            </ul>
+        </div>
+
+        <!-- Программа -->
+        <div class="section">
+            <h2>Программа мероприятия</h2>
+            <ol>
+                <li><strong>10:00</strong> — Открытие</li>
+                <li><strong>11:00</strong> — Лекция "Будущее AI"</li>
+                <li><strong>13:00</strong> — Хакатон</li>
+                <li><strong>16:00</strong> — Награждение</li>
+                <li><strong>18:00</strong> — Фуршет</li>
+            </ol>
+        </div>
+
+        <!-- Регистрация -->
+        <div class="section">
+            <h2>Регистрация</h2>
+            <form class="registration-form" onsubmit="alert('Спасибо за регистрацию!'); return false;">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Почему вы хотите участвовать?" rows="4"></textarea>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 День Программиста | Все права защищены
+    </footer>
+
+    <!-- Скрипты -->
+    <script>
+        // Анимация фона (матрица)
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = "01";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0F0";
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 33);
+
+        // Смена фона
+        function setBg(type) {
+            const body = document.body;
+            const canvas = document.getElementById('matrix-bg');
+
+            if (type === 'matrix') {
+                body.style.background = "black";
+                canvas.style.display = "block";
+            } else if (type === 'code') {
+                body.style.background = "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)";
+                canvas.style.display = "none";
+            } else if (type === 'dark') {
+                body.style.background = "#121212";
+                canvas.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
